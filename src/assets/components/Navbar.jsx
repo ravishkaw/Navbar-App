@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { links, social } from "../../data";
 import { FaBars } from "react-icons/fa";
 import logo from "../../logo.svg";
@@ -6,8 +6,17 @@ import logo from "../../logo.svg";
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
 
+  const linksContainerRef = useRef(null);
+  const linksRef = useRef(null);
+
   const handleClick = () => {
     setShowLinks(!showLinks);
+  };
+
+  const linkStyles = {
+    height: showLinks
+      ? `${linksRef.current.getBoundingClientRect().height}px`
+      : "0px",
   };
 
   return (
@@ -19,26 +28,36 @@ const Navbar = () => {
             <FaBars />
           </button>
         </div>
+
         <div
-          className={
-            showLinks ? "links-container show-container" : "links-container"
-          }
+          className="links-container"
+          ref={linksContainerRef}
+          style={linkStyles}
         >
-          {showLinks && (
-            <ul>
-              {links.map((link) => {
-                const { id, text, url } = link;
-                return (
-                  <li key={id}>
-                    <a href={url} className="link">
-                      {text}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          <ul ref={linksRef}>
+            {links.map((link) => {
+              const { id, text, url } = link;
+              return (
+                <li key={id}>
+                  <a href={url} className="link">
+                    {text}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
+
+        <ul className="social-icons">
+          {social.map((socialIcon) => {
+            const { id, url, icon } = socialIcon;
+            return (
+              <li key={id}>
+                <a href={url}>{icon}</a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </nav>
   );
