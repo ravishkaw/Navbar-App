@@ -4,7 +4,7 @@ This project is a responsive and dynamic Navbar application built using React. T
 
 ## Demo
 
-You can check out the live demo of the app [here](https://menu-ravi.netlify.app/).
+You can check out the live demo of the app [here](https://navbar-ravi.netlify.app).
 
 ## Features
 
